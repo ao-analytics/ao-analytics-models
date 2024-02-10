@@ -32,7 +32,7 @@ impl MarketOrder {
         Some(Self {
             id: nats_market_order.id.as_i64()?,
             item_unique_name: nats_market_order.item_id.clone(),
-            location_id: format!("{:0>4}", nats_market_order.location_id),
+            location_id: format!("{:0>4}", nats_market_order.location_id.as_i64()?),
             quality_level: nats_market_order.quality_level.as_i64()? as i32,
             enchantment_level: nats_market_order.enchantment_level.as_i64()? as i32,
             unit_price_silver: nats_market_order.unit_price_silver.as_i64()? as i32,
