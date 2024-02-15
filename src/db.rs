@@ -5,7 +5,6 @@ use sqlx;
 
 #[derive(sqlx::FromRow, Debug)]
 pub struct MarketOrder {
-    pub received_at: sqlx::types::chrono::NaiveDateTime,
     pub id: i64,
     pub item_unique_name: String,
     pub location_id: String,
@@ -15,6 +14,8 @@ pub struct MarketOrder {
     pub amount: i32,
     pub auction_type: String,
     pub expires_at: sqlx::types::chrono::NaiveDateTime,
+    pub created_at: sqlx::types::chrono::NaiveDateTime,
+    pub updated_at: sqlx::types::chrono::NaiveDateTime,
 }
 
 impl MarketOrder {
@@ -29,7 +30,6 @@ impl MarketOrder {
         };
 
         Some(Self {
-            received_at: sqlx::types::chrono::Utc::now().naive_utc(),
             id: nats_market_order.id.as_i64()?,
             item_unique_name: nats_market_order.item_id.clone(),
             location_id: format!("{:0>4}", nats_market_order.location_id.as_i64()?),
@@ -39,6 +39,8 @@ impl MarketOrder {
             amount: nats_market_order.amount.as_i64()? as i32,
             auction_type: nats_market_order.auction_type.clone(),
             expires_at,
+            created_at: sqlx::types::chrono::Utc::now().naive_utc(),
+            updated_at: sqlx::types::chrono::Utc::now().naive_utc(),
         })
     }
 }
