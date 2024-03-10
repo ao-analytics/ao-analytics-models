@@ -87,7 +87,7 @@ pub struct Location {
 }
 
 #[derive(Debug, serde::Deserialize)]
-pub struct Root {
+pub struct ItemsJson {
     pub items: Items,
 }
 
