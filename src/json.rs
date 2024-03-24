@@ -165,6 +165,8 @@ pub struct Item {
     pub weight: Option<String>,
     #[serde(rename = "@tier")]
     pub tier: Option<String>,
+    #[serde(rename = "@enchantmentlevel")]
+    pub enchantment_level: Option<String>,
 
     #[serde(default)]
     #[serde(rename = "craftingrequirements")]
