@@ -1,7 +1,7 @@
 use std::str::FromStr;
 
 use super::nats;
-use sqlx;
+use sqlx::{self, types::chrono::Utc};
 
 #[derive(sqlx::FromRow, Debug)]
 pub struct MarketOrder {
@@ -12,16 +12,16 @@ pub struct MarketOrder {
     pub unit_price_silver: i32,
     pub amount: i32,
     pub auction_type: String,
-    pub expires_at: sqlx::types::chrono::NaiveDateTime,
-    pub created_at: sqlx::types::chrono::NaiveDateTime,
-    pub updated_at: sqlx::types::chrono::NaiveDateTime,
+    pub expires_at: sqlx::types::chrono::DateTime<Utc>,
+    pub created_at: sqlx::types::chrono::DateTime<Utc>,
+    pub updated_at: sqlx::types::chrono::DateTime<Utc>,
 }
 
 impl MarketOrder {
     #[allow(dead_code)]
     pub fn from_nats(nats_market_order: &nats::MarketOrder) -> Option<MarketOrder> {
         let expires_at =
-            sqlx::types::chrono::NaiveDateTime::from_str(nats_market_order.expires.as_str());
+            sqlx::types::chrono::DateTime::from_str(nats_market_order.expires.as_str());
 
         let expires_at = match expires_at {
             Ok(expires_at) => expires_at,
@@ -37,8 +37,8 @@ impl MarketOrder {
             amount: nats_market_order.amount.as_i64()? as i32,
             auction_type: nats_market_order.auction_type.clone(),
             expires_at,
-            created_at: sqlx::types::chrono::Utc::now().naive_utc(),
-            updated_at: sqlx::types::chrono::Utc::now().naive_utc(),
+            created_at: sqlx::types::chrono::Utc::now(),
+            updated_at: sqlx::types::chrono::Utc::now(),
         })
     }
 }
@@ -49,11 +49,11 @@ pub struct MarketHistory {
     pub location_id: String,
     pub quality_level: i32,
     pub timescale: i32,
-    pub timestamp: sqlx::types::chrono::NaiveDateTime,
+    pub timestamp: sqlx::types::chrono::DateTime<Utc>,
     pub item_amount: i32,
     pub silver_amount: i32,
-    pub created_at: sqlx::types::chrono::NaiveDateTime,
-    pub updated_at: sqlx::types::chrono::NaiveDateTime,
+    pub created_at: sqlx::types::chrono::DateTime<Utc>,
+    pub updated_at: sqlx::types::chrono::DateTime<Utc>,
 }
 
 impl MarketHistory {
@@ -67,11 +67,13 @@ impl MarketHistory {
                 location_id: format!("{:0>4}", nats_market_history.location_id.to_string()),
                 quality_level: nats_market_history.quality_level.as_i64()? as i32,
                 timescale: nats_market_history.timescale.as_i64()? as i32,
-                timestamp: sqlx::types::chrono::NaiveDateTime::from_timestamp_millis(market_history.timestamp.as_i64()? / 10000 - 62136892800000)?,
+                timestamp: sqlx::types::chrono::DateTime::from_timestamp_millis(
+                    market_history.timestamp.as_i64()? / 10000 - 62136892800000,
+                )?,
                 item_amount: market_history.item_amount.as_i64()? as i32,
                 silver_amount: market_history.silver_amount.as_i64()? as i32,
-                created_at: sqlx::types::chrono::Utc::now().naive_utc(),
-                updated_at: sqlx::types::chrono::Utc::now().naive_utc(),
+                created_at: sqlx::types::chrono::Utc::now(),
+                updated_at: sqlx::types::chrono::Utc::now(),
             });
         }
 
