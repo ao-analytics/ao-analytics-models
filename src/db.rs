@@ -21,7 +21,7 @@ impl MarketOrder {
     #[allow(dead_code)]
     pub fn from_nats(nats_market_order: &nats::MarketOrder) -> Option<MarketOrder> {
         let expires_at =
-            sqlx::types::chrono::DateTime::from_str(nats_market_order.expires.as_str());
+            sqlx::types::chrono::NaiveDateTime::from_str(nats_market_order.expires.as_str());
 
         let expires_at = match expires_at {
             Ok(expires_at) => expires_at,
@@ -36,7 +36,7 @@ impl MarketOrder {
             unit_price_silver: nats_market_order.unit_price_silver.as_i64()? as i32,
             amount: nats_market_order.amount.as_i64()? as i32,
             auction_type: nats_market_order.auction_type.clone(),
-            expires_at,
+            expires_at: expires_at.and_utc(),
             created_at: sqlx::types::chrono::Utc::now(),
             updated_at: sqlx::types::chrono::Utc::now(),
         })
