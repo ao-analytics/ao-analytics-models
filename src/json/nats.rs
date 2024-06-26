@@ -1,6 +1,6 @@
+use bytes;
 use serde;
 use serde_json;
-use bytes;
 
 #[derive(serde::Deserialize, Debug)]
 pub struct MarketOrder {

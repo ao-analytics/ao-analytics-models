@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use super::nats;
+use crate::json::nats;
 use sqlx::{self, types::chrono::Utc};
 
 #[derive(sqlx::FromRow, Debug)]
