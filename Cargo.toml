@@ -1,5 +1,5 @@
 [package]
-name = "aodata_models"
+name = "ao-analytics-models"
 version = "0.1.0"
 edition = "2021"
 
