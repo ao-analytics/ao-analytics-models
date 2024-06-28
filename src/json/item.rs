@@ -1,11 +1,11 @@
 use serde::Deserialize;
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct Root {
     pub items: Items,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct Items {
     #[serde(rename = "shopcategories")]
     pub shop_categories: ShopCategories,
@@ -43,13 +43,13 @@ pub struct Items {
     pub kill_trophy: Item,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct ShopCategories {
     #[serde(rename = "shopcategory")]
     pub shop_categories: Vec<ShopCategory>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct ShopCategory {
     #[serde(rename = "@id")]
     pub id: String,
@@ -59,7 +59,7 @@ pub struct ShopCategory {
     pub shop_sub_category: Vec<ShopSubCategory>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct ShopSubCategory {
     #[serde(rename = "@id")]
     pub id: String,
@@ -67,7 +67,7 @@ pub struct ShopSubCategory {
     pub value: String,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct Item {
     #[serde(rename = "@abilitypower")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -852,31 +852,31 @@ where
     })
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct AssetVfxPreset {
     #[serde(rename = "@name")]
     pub name: String,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct AudioInfo {
     #[serde(rename = "@name")]
     pub name: String,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct FootStepVfxPreset {
     #[serde(rename = "@name")]
     pub name: String,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct SocketPreset {
     #[serde(rename = "@name")]
     pub name: String,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct AttackVariations {
     #[serde(rename = "attackchaintime")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -886,7 +886,7 @@ pub struct AttackVariations {
     pub attacks: Vec<Attack>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct Attack {
     #[serde(rename = "@attackdamagefactor")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -907,7 +907,7 @@ pub struct Attack {
     pub attack_vfx: Option<Vec<AttackVfx>>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct AttackVfx {
     #[serde(rename = "@prefab")]
     pub prefab: Option<String>,
@@ -925,22 +925,22 @@ pub struct AttackVfx {
     */
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct CanHarvest {
     #[serde(rename = "@resourcetype")]
     pub resource_type: Option<String>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct CheatProvider {}
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct Consumption {
     #[serde(rename = "food")]
     pub food: Option<Food>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct Food {
     #[serde(rename = "@hungryoverheadicon")]
     pub hungry_overhead_icon: Option<String>,
@@ -961,7 +961,7 @@ pub struct Food {
     pub accepted_food: Option<AcceptedFood>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct AcceptedFood {
     #[serde(rename = "@favourite")]
     pub favourite: Option<String>,
@@ -974,7 +974,7 @@ pub struct AcceptedFood {
     pub food_category: Option<String>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct Container {
     #[serde(rename = "@capacity")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -985,7 +985,7 @@ pub struct Container {
     pub weight_limit: Option<f32>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct CraftingRequirements {
     #[serde(rename = "@amountcrafted")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -1052,7 +1052,7 @@ pub struct CraftingRequirements {
     pub vanity_unlocked: Option<VanityUnlocked>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct CraftResource {
     #[serde(rename = "@count")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -1074,7 +1074,7 @@ pub struct CraftResource {
     pub unique_name: Option<String>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct Currency {
     #[serde(rename = "@uniquename")]
     pub unqiue_name: String,
@@ -1084,14 +1084,14 @@ pub struct Currency {
     pub amount: Option<i32>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct MistCityStanding {
     #[serde(rename = "@minstanding")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
     pub min_standing: Option<i32>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct PlayerFactionStanding {
     #[serde(rename = "@faction")]
     pub faction: Option<String>,
@@ -1101,7 +1101,7 @@ pub struct PlayerFactionStanding {
     pub min_standing: Option<i32>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct VanityUnlocked {
     #[serde(rename = "@type")]
     pub vanity_type: Option<String>,
@@ -1110,14 +1110,14 @@ pub struct VanityUnlocked {
     pub name: Option<String>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct CraftingSpellList {
     #[serde(rename = "craftspell")]
     #[serde(default, deserialize_with = "deserialize_option_vec_or_val")]
     pub craft_spells: Option<Vec<CraftSpell>>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct CraftSpell {
     #[serde(rename = "@slots")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -1130,13 +1130,13 @@ pub struct CraftSpell {
     pub unique_name: Option<String>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct Enchantments {
     #[serde(rename = "enchantment")]
     pub enchantments: Vec<Enchantment>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct Enchantment {
     #[serde(rename = "@abilitypower")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -1177,13 +1177,13 @@ pub struct Enchantment {
     pub upgrade_requirements: Option<UpgradeRequirements>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct UpgradeRequirements {
     #[serde(rename = "upgraderesource")]
     pub upgrade_resource: UpgradeResource,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct UpgradeResource {
     #[serde(rename = "@uniquename")]
     pub unique_name: Option<String>,
@@ -1193,7 +1193,7 @@ pub struct UpgradeResource {
     pub count: Option<i32>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct FameFillingMissions {
     #[serde(rename = "craftitemfame")]
     pub craft_item_fame: Option<CraftItemFame>,
@@ -1211,7 +1211,7 @@ pub struct FameFillingMissions {
     pub kill_mod_fame: Option<KillMobFame>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct CraftItemFame {
     #[serde(rename = "@mintier")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -1225,27 +1225,27 @@ pub struct CraftItemFame {
     pub valid_items: Option<Vec<ValidItem>>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct ValidItem {
     #[serde(rename = "@id")]
     pub id: Option<String>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct FameEarned {
     #[serde(rename = "@value")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
     pub value: Option<i32>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct FishingFame {
     #[serde(rename = "@value")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
     pub value: Option<i32>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct GatherFame {
     #[serde(rename = "@mintier")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -1259,7 +1259,7 @@ pub struct GatherFame {
     pub valid_items: Option<Vec<ValidItem>>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct KillMobFame {
     #[serde(rename = "@mintier")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -1270,7 +1270,7 @@ pub struct KillMobFame {
     pub value: Option<i32>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct GrownItem {
     #[serde(rename = "@fame")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -1287,7 +1287,7 @@ pub struct GrownItem {
     pub offspring: Option<Offspring>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct Offspring {
     #[serde(rename = "@amount")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -1298,7 +1298,7 @@ pub struct Offspring {
     pub chance: Option<f32>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct Harvest {
     #[serde(rename = "@fame")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -1319,7 +1319,7 @@ pub struct Harvest {
     pub seed: Option<Seed>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct Seed {
     #[serde(rename = "@amount")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -1330,14 +1330,14 @@ pub struct Seed {
     pub chance: Option<f32>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct LootList {
     #[serde(rename = "loot")]
     #[serde(default, deserialize_with = "deserialize_option_vec_or_val")]
     pub loot: Option<Vec<Loot>>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct Loot {
     #[serde(rename = "@itemamount")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -1363,14 +1363,14 @@ pub struct Loot {
     pub weight: Option<f32>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct MountSpellList {
     #[serde(rename = "mountspell")]
     #[serde(default, deserialize_with = "deserialize_option_vec_or_val")]
     pub mount_spells: Option<Vec<MountSpell>>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct MountSpell {
     #[serde(rename = "@spellslot")]
     pub spell_slot: Option<String>,
@@ -1379,13 +1379,13 @@ pub struct MountSpell {
     pub unique_name: Option<String>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct Products {
     #[serde(rename = "product")]
     pub product: Option<Product>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct Product {
     #[serde(rename = "@actionname")]
     pub action_name: Option<String>,
@@ -1406,7 +1406,7 @@ pub struct Product {
     pub production_time: Option<i32>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct Projectile {
     #[serde(rename = "@flyspeed")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -1432,7 +1432,7 @@ pub struct Projectile {
     pub impact_vfx: Option<ImpactVfx>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct ImpactVfx {
     #[serde(rename = "@impactsocket")]
     pub impact_socket: Option<String>,
@@ -1441,7 +1441,7 @@ pub struct ImpactVfx {
     pub prefab: Option<String>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct RepairKit {
     #[serde(rename = "@maxtier")]
     #[serde(default, deserialize_with = "deserialize_from_string")]
@@ -1452,13 +1452,13 @@ pub struct RepairKit {
     pub repair_cost_factor: Option<i32>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct ReplaceOnDeath {
     #[serde(rename = "replacementitem")]
     pub replacement_item: ReplacementItem,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct ReplacementItem {
     #[serde(rename = "@count")]
     #[serde(default, deserialize_with = "deserialize_from_string")]

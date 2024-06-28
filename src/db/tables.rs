@@ -21,12 +21,8 @@ impl MarketOrder {
     #[allow(dead_code)]
     pub fn from_nats(nats_market_order: &nats::MarketOrder) -> Option<MarketOrder> {
         let expires_at =
-            sqlx::types::chrono::NaiveDateTime::from_str(nats_market_order.expires.as_str());
-
-        let expires_at = match expires_at {
-            Ok(expires_at) => expires_at,
-            Err(_) => return None,
-        };
+            sqlx::types::chrono::NaiveDateTime::from_str(nats_market_order.expires.as_str())
+                .ok()?;
 
         Some(Self {
             id: nats_market_order.id.as_i64()?,
@@ -83,7 +79,6 @@ impl MarketHistory {
 
 #[derive(sqlx::FromRow, serde::Serialize)]
 pub struct Item {
-    pub id: String,
     pub unique_name: String,
 }
 
@@ -125,4 +120,10 @@ pub struct LocalizedDescription {
     pub id_id: Option<String>,
     pub tr_tr: Option<String>,
     pub ar_sa: Option<String>,
+}
+
+#[derive(sqlx::FromRow, serde::Serialize)]
+pub struct ItemData {
+    pub item_unique_name: String,
+    pub data: super::super::json::item::Item,
 }
