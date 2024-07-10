@@ -19,6 +19,8 @@ pub struct Items {
     pub farmable_item: Vec<Item>,
     #[serde(rename = "simpleitem")]
     pub simple_item: Vec<Item>,
+    #[serde(rename = "siegebanner")]
+    pub siegebanner: Vec<Item>,
     #[serde(rename = "consumableitem")]
     pub consumable_item: Vec<Item>,
     #[serde(rename = "consumablefrominventoryitem")]
