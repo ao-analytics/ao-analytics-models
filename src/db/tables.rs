@@ -125,5 +125,5 @@ pub struct LocalizedDescription {
 #[derive(sqlx::FromRow, serde::Serialize)]
 pub struct ItemData {
     pub item_unique_name: String,
-    pub data: super::super::json::item::Item,
+    pub data: serde_json::Value,
 }
